@@ -25,7 +25,7 @@ public class SlidingPuzzleModel extends java.util.Observable
     }
 
     public void intitialize()
-    {
+    { 
         setPiecesInOrder();
         setEmptyPlace();
     }
