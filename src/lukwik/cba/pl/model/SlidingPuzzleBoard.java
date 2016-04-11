@@ -5,20 +5,23 @@ import java.util.*;
 /**
  * Created by Alvaro on 03.01.2016.
  */
-public class SlidingPuzzleModel extends java.util.Observable
-{
+public class SlidingPuzzleBoard extends Observable implements SlidingPuzzleModelInterface {
+
+ //   private List<Observer> observers = new LinkedList();
     private List pieces;
     private int boardSize;
 
-    public SlidingPuzzleModel()
+    public SlidingPuzzleBoard()
     {
         initialize();
     }
 
+    @Override
     public void initialize()
     {
         boardSize = 4;
-        pieces = new ArrayList();
+        setPiecesInOrder();
+
     }
 
     protected List getPiecesInOrder()
@@ -35,17 +38,19 @@ public class SlidingPuzzleModel extends java.util.Observable
         return pieces;
     }
 
+    @Override
     public void setPiecesInOrder()
     {
        pieces = getPiecesInOrder();
     }
 
+    @Override
     public void shakePieces()
     {
-/*        setPiecesInOrder();*/
         Collections.shuffle(pieces);
     }
 
+    @Override
     public int getEmptyPiecePosition()
     {
         int position;
@@ -53,20 +58,28 @@ public class SlidingPuzzleModel extends java.util.Observable
         return position;
     }
 
+    @Override
     public int getBoardSize()
     {
         return boardSize;
     }
 
+    @Override
     public void moveFromPlace(int position)
     {
-        int emptyPos, requestedPiece;
-        emptyPos = getEmptyPiecePosition();
-        requestedPiece = (Integer) pieces.get(position);
-        pieces.set(position, 0);
-        pieces.set(emptyPos, requestedPiece);
+        if (isMovePossible(position))
+        {
+            int emptyPos, requestedPiece;
+            emptyPos = getEmptyPiecePosition();
+            requestedPiece = (Integer) pieces.get(position);
+            pieces.set(position, 0);
+            pieces.set(emptyPos, requestedPiece);
+            notifyObservers(pieces);
+        }
+
     }
 
+    @Override
     public boolean isMovePossible(int position)
     {
         int sourceRow, sourceCol,emptyPos, rowEmpty, colEmpty;
@@ -83,10 +96,7 @@ public class SlidingPuzzleModel extends java.util.Observable
         return false;
     }
 
-    public void swap(int position)
-    {
-
-    }
+    @Override
     public boolean arePiecesInOrder()
     {
       if (pieces.equals(getPiecesInOrder()))
@@ -99,12 +109,4 @@ public class SlidingPuzzleModel extends java.util.Observable
 
     }
 
-    public  void print()
-    {
-        for(int i=0; i<boardSize; i++)
-        {
-//            System.out.println(Arrays.toString(board[i]));
-        }
-
-    }
 }
