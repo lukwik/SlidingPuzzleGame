@@ -7,11 +7,16 @@ import lukwik.cba.pl.model.SlidingPuzzleBoard;
  */
 public class ModelTest
 {
-    public static void Main(String[] args)
+    public static void main(String[] args)
     {
-        System.out.println("Hello World!");
-        SlidingPuzzleBoard board = new SlidingPuzzleBoard();
-        board.setPiecesInOrder();
-
+        SlidingPuzzleBoard gameBoard = new SlidingPuzzleBoard();
+        gameBoard.setPiecesInOrder();
+//        gameBoard.shakePieces();
+        gameBoard.getEmptyPiecePosition();
+        gameBoard.getBoardSize();
+        gameBoard.arePiecesInOrder();
+        gameBoard.isMovePossible(3);
+        gameBoard.isMovePossible(11);
+        gameBoard.moveFromPlace(11);
     }
 }

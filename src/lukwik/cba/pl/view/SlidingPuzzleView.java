@@ -4,6 +4,8 @@ import lukwik.cba.pl.controller.SlidingPuzzleController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -12,7 +14,7 @@ import java.util.Observer;
 /**
  * Created by Alvaro on 10.04.2016.
  */
-public class SlidingPuzzleView implements Observer
+public class SlidingPuzzleView implements Observer, ActionListener
 {
     List pieces;
     SlidingPuzzleController controller;
@@ -31,7 +33,9 @@ public class SlidingPuzzleView implements Observer
         pieces = new ArrayList();
         frameGame = new JFrame("Sliding puzzle game");
         buttonNewGame = new JButton("New Game");
+        buttonNewGame.addActionListener(this);
         buttonStart = new JButton("Start");
+        buttonStart.addActionListener(this);
         panelPieces = new PiecesPanel(pieces);
         panelPieces.setLayout( new GridLayout(3,1) );
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +43,7 @@ public class SlidingPuzzleView implements Observer
         frameGame.getContentPane().add(panelPieces);
         frameGame.getContentPane().add(buttonNewGame);
         frameGame.getContentPane().add(buttonStart);
-        frameGame.setSize( new Dimension(500,500) );
+        frameGame.setSize( new Dimension(200,200) );
         frameGame.pack();
         frameGame.setVisible(true);
    //     frameGame.setLayout();
@@ -52,6 +56,20 @@ public class SlidingPuzzleView implements Observer
         pieces.clear();
         pieces.addAll(list);
         frameGame.repaint();
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == buttonStart)
+        {
+            controller.start();
+        }
+        else if (e.getSource() == buttonNewGame)
+        {
+            controller.newGame();
+        }
     }
 }
 
