@@ -33,6 +33,16 @@ public class SlidingPuzzleView implements Observer
         buttonNewGame = new JButton("New Game");
         buttonStart = new JButton("Start");
         panelPieces = new PiecesPanel(pieces);
+        panelPieces.setLayout( new GridLayout(3,1) );
+        frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameGame.getContentPane().setLayout( new GridLayout(3,1) );
+        frameGame.getContentPane().add(panelPieces);
+        frameGame.getContentPane().add(buttonNewGame);
+        frameGame.getContentPane().add(buttonStart);
+        frameGame.setSize( new Dimension(500,500) );
+        frameGame.pack();
+        frameGame.setVisible(true);
+   //     frameGame.setLayout();
 
     }
     @Override
@@ -41,6 +51,7 @@ public class SlidingPuzzleView implements Observer
         List list = (List) arg;
         pieces.clear();
         pieces.addAll(list);
+        frameGame.repaint();
     }
 }
 
@@ -55,6 +66,23 @@ class PiecesPanel extends JPanel
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int gameBoardSize;
+        int pieceSize =50;
+        gameBoardSize = getGameBoardSize();
+        for (int row = 0; row < gameBoardSize; row++)
+        {
+            for (int col = 0; col < gameBoardSize; col++)
+            {
+                g.drawRect(row*pieceSize,col*pieceSize,pieceSize,pieceSize);
+                g.drawString(String.valueOf(pieces.get(row*gameBoardSize+col)),row*(pieceSize/2),col*(pieceSize/2));
+            }
+        }
+    }
 
+    private int getGameBoardSize()
+    {
+        double sqrt;
+        sqrt = Math.sqrt(pieces.size());
+        return Integer.parseInt(String.valueOf(sqrt));
     }
 }
