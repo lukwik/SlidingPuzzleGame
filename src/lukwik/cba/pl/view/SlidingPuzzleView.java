@@ -31,7 +31,16 @@ public class SlidingPuzzleView implements Observer, ActionListener
     public void initialize()
     {
         pieces = new ArrayList();
+        pieces.add(1);
+        pieces.add(2);
+        pieces.add(3);
+        pieces.add(4);
+        pieces.add(1);
+        pieces.add(2);
+        pieces.add(3);
+        pieces.add(4);
         frameGame = new JFrame("Sliding puzzle game");
+        frameGame.setSize( new Dimension(100,100) );
         buttonNewGame = new JButton("New Game");
         buttonNewGame.addActionListener(this);
         buttonStart = new JButton("Start");
@@ -40,10 +49,11 @@ public class SlidingPuzzleView implements Observer, ActionListener
         panelPieces.setLayout( new GridLayout(3,1) );
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.getContentPane().setLayout( new GridLayout(3,1) );
+        frameGame.getContentPane().setSize(800,800);
         frameGame.getContentPane().add(panelPieces);
         frameGame.getContentPane().add(buttonNewGame);
         frameGame.getContentPane().add(buttonStart);
-        frameGame.setSize( new Dimension(200,200) );
+
         frameGame.pack();
         frameGame.setVisible(true);
    //     frameGame.setLayout();
@@ -85,7 +95,7 @@ class PiecesPanel extends JPanel
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int gameBoardSize;
-        int pieceSize =50;
+        int pieceSize =200;
         gameBoardSize = getGameBoardSize();
         for (int row = 0; row < gameBoardSize; row++)
         {
@@ -99,8 +109,9 @@ class PiecesPanel extends JPanel
 
     private int getGameBoardSize()
     {
-        double sqrt;
-        sqrt = Math.sqrt(pieces.size());
-        return Integer.parseInt(String.valueOf(sqrt));
+        Double sqrt;
+
+        sqrt = new Double(Math.sqrt(pieces.size()));
+        return sqrt.intValue();
     }
 }
