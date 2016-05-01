@@ -9,5 +9,6 @@ public class SlidingPuzzleMain {
 
         SlidingPuzzleBoard model = new SlidingPuzzleBoard();
         SlidingPuzzleController controller = new SlidingPuzzleController(model);
+
     }
 }

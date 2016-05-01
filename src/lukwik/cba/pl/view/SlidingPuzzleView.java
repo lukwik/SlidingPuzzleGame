@@ -31,14 +31,6 @@ public class SlidingPuzzleView implements Observer, ActionListener
     public void initialize()
     {
         pieces = new ArrayList();
-        pieces.add(1);
-        pieces.add(2);
-        pieces.add(3);
-        pieces.add(4);
-        pieces.add(1);
-        pieces.add(2);
-        pieces.add(3);
-        pieces.add(4);
         frameGame = new JFrame("Sliding puzzle game");
         frameGame.setSize( new Dimension(100,100) );
         buttonNewGame = new JButton("New Game");
@@ -95,14 +87,15 @@ class PiecesPanel extends JPanel
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int gameBoardSize;
-        int pieceSize =200;
+        int pieceSize =150;
         gameBoardSize = getGameBoardSize();
+        setPreferredSize(new Dimension( gameBoardSize * pieceSize, gameBoardSize * pieceSize));
         for (int row = 0; row < gameBoardSize; row++)
         {
             for (int col = 0; col < gameBoardSize; col++)
             {
                 g.drawRect(row*pieceSize,col*pieceSize,pieceSize,pieceSize);
-                g.drawString(String.valueOf(pieces.get(row*gameBoardSize+col)),row*(pieceSize/2),col*(pieceSize/2));
+                g.drawString(String.valueOf(pieces.get(col*gameBoardSize+row)),(row+1)*(pieceSize/2),(col+1)*(pieceSize/2));
             }
         }
     }

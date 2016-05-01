@@ -18,8 +18,9 @@ public class SlidingPuzzleController implements SlidingPuzzleControllerInterface
         view = new SlidingPuzzleView(this);
         model.addObserver(view);
         this.model = (SlidingPuzzleModelInterface)model;
-        this.model.initialize();
         view.initialize();
+        this.model.initialize();
+
     }
 
     @Override

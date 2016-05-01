@@ -21,10 +21,16 @@ public class SlidingPuzzleBoard extends Observable implements SlidingPuzzleModel
     {
         boardSize = 4;
         setPiecesInOrder();
-        notifyObservers(pieces);
+        notifyObservers();
 
     }
-
+    @Override
+    public void notifyObservers()
+    {
+        setChanged();
+        notifyObservers(pieces);
+        clearChanged();
+    }
     protected List getPiecesInOrder()
     {
         int counter = 1;
@@ -49,7 +55,7 @@ public class SlidingPuzzleBoard extends Observable implements SlidingPuzzleModel
     public void shakePieces()
     {
         Collections.shuffle(pieces);
-        notifyObservers(pieces);
+        notifyObservers();
     }
 
     @Override
@@ -76,7 +82,7 @@ public class SlidingPuzzleBoard extends Observable implements SlidingPuzzleModel
             requestedPiece = (Integer) pieces.get(position);
             pieces.set(position, 0);
             pieces.set(emptyPos, requestedPiece);
-            notifyObservers(pieces);
+            notifyObservers();
         }
 
     }
