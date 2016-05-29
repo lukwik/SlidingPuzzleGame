@@ -32,16 +32,19 @@ public class SlidingPuzzleView implements Observer, ActionListener
     {
         pieces = new ArrayList();
         frameGame = new JFrame("Sliding puzzle game");
-        frameGame.setSize( new Dimension(100,100) );
+//        frameGame.setSize( new Dimension(100,100) );
         buttonNewGame = new JButton("New Game");
         buttonNewGame.addActionListener(this);
         buttonStart = new JButton("Start");
         buttonStart.addActionListener(this);
+        buttonStart.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonNewGame.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelPieces = new PiecesPanel(pieces);
-        panelPieces.setLayout( new GridLayout(3,1) );
+        panelPieces.setPreferredSize( new Dimension(700,700));
+//        panelPieces.setLayout( new GridLayout(3,1) );
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameGame.getContentPane().setLayout( new GridLayout(3,1) );
-        frameGame.getContentPane().setSize(800,800);
+        frameGame.getContentPane().setLayout( new BoxLayout(frameGame.getContentPane(), BoxLayout.Y_AXIS) );
+//        frameGame.getContentPane().setSize(800,800);
         frameGame.getContentPane().add(panelPieces);
         frameGame.getContentPane().add(buttonNewGame);
         frameGame.getContentPane().add(buttonStart);
@@ -88,14 +91,17 @@ class PiecesPanel extends JPanel
         super.paintComponent(g);
         int gameBoardSize;
         int pieceSize =150;
+        int restOfDivision, offset;
         gameBoardSize = getGameBoardSize();
-        setPreferredSize(new Dimension( gameBoardSize * pieceSize, gameBoardSize * pieceSize));
+//        setPreferredSize(new Dimension( gameBoardSize * pieceSize, gameBoardSize * pieceSize));
         for (int row = 0; row < gameBoardSize; row++)
         {
             for (int col = 0; col < gameBoardSize; col++)
             {
                 g.drawRect(row*pieceSize,col*pieceSize,pieceSize,pieceSize);
-                g.drawString(String.valueOf(pieces.get(col*gameBoardSize+row)),(row+1)*(pieceSize/2),(col+1)*(pieceSize/2));
+                restOfDivision = col % 2;
+                offset = restOfDivision * (pieceSize/2);
+                g.drawString(String.valueOf(pieces.get(col*gameBoardSize+row)),((row+1)*(pieceSize/2))+offset,((col+1)*(pieceSize/2))+offset);
             }
         }
     }
