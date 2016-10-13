@@ -24,6 +24,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
     JButton buttonNewGame;
     JButton buttonStart;
     PiecesPanel panelPieces;
+    int pieceSize;
 
     public  SlidingPuzzleView( SlidingPuzzleController c )
     {
@@ -32,6 +33,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
 
     public void initialize()
     {
+        pieceSize = 150;
         pieces = new ArrayList();
         frameGame = new JFrame("Sliding puzzle game");
 //        frameGame.setSize( new Dimension(100,100) );
@@ -43,6 +45,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
         buttonNewGame.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelPieces = new PiecesPanel(pieces);
         panelPieces.setPreferredSize( new Dimension(700,700));
+        panelPieces.addMouseListener(this);
 //        panelPieces.setLayout( new GridLayout(3,1) );
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.getContentPane().setLayout( new BoxLayout(frameGame.getContentPane(), BoxLayout.Y_AXIS) );
@@ -89,7 +92,15 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
 
     private int getPositionFromCoordinates(int x, int y) {
 
-        return 0;
+        int position;
+        int row;
+        int col;
+        int colNumber;
+        colNumber = panelPieces.getGameBoardSize();
+        row = y / pieceSize;
+        col = x / pieceSize;
+        position = row * colNumber + col;
+        return position;
     }
 
     @Override
@@ -111,50 +122,51 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
     public void mouseExited(MouseEvent e) {
 
     }
-}
 
-class PiecesPanel extends JPanel
-{
-    List pieces;
-
-    PiecesPanel(List p)
+    class PiecesPanel extends JPanel
     {
-        pieces = p;
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int gameBoardSize;
-        int pieceSize =150;
-        int offset = pieceSize/2;
-        int pieceId, x, y;
-        gameBoardSize = getGameBoardSize();
-//        setPreferredSize(new Dimension( gameBoardSize * pieceSize, gameBoardSize * pieceSize));
-        for (int row = 0; row < gameBoardSize; row++)
-        {
-            for (int col = 0; col < gameBoardSize; col++)
-            {
-                g.drawRect(row*pieceSize,col*pieceSize,pieceSize,pieceSize);
-                pieceId = (Integer) pieces.get(row*gameBoardSize+col);
-                x = offset+(col*pieceSize);
-                y = offset+(row*pieceSize);
-                if(pieceId == 0)
-                {
-                    g.drawString(Character.toString(' '),x,y);
-                }else
-                {
-                    g.drawString(String.valueOf(pieceId),x,y);
-                }
+//    List pieces;
 
+        PiecesPanel(List p)
+        {
+//        pieces = p;
+//
+        }
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            int gameBoardSize;
+            int offset = pieceSize/2;
+            int pieceId, x, y;
+            gameBoardSize = getGameBoardSize();
+//        setPreferredSize(new Dimension( gameBoardSize * pieceSize, gameBoardSize * pieceSize));
+            for (int row = 0; row < gameBoardSize; row++)
+            {
+                for (int col = 0; col < gameBoardSize; col++)
+                {
+                    g.drawRect(row*pieceSize,col*pieceSize,pieceSize,pieceSize);
+                    pieceId = (Integer) pieces.get(row*gameBoardSize+col);
+                    x = offset+(col*pieceSize);
+                    y = offset+(row*pieceSize);
+                    if(pieceId == 0)
+                    {
+                        g.drawString(Character.toString(' '),x,y);
+                    }else
+                    {
+                        g.drawString(String.valueOf(pieceId),x,y);
+                    }
+
+                }
             }
         }
-    }
 
-    private int getGameBoardSize()
-    {
-        Double sqrt;
+        public int getGameBoardSize()
+        {
+            Double sqrt;
 
-        sqrt = new Double(Math.sqrt(pieces.size()));
-        return sqrt.intValue();
+            sqrt = new Double(Math.sqrt(pieces.size()));
+            return sqrt.intValue();
+        }
     }
 }
+
