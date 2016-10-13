@@ -41,7 +41,7 @@ public class SlidingPuzzleController implements SlidingPuzzleControllerInterface
         model.moveFromPlace(selectedPiecePosition);
         if (model.arePiecesInOrder())
         {
-
+            view.setText("You Win!");
         }
     }
 }

@@ -20,6 +20,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
 {
     List pieces;
     SlidingPuzzleController controller;
+    JLabel messageLabel;
     JFrame frameGame;
     JButton buttonNewGame;
     JButton buttonStart;
@@ -37,6 +38,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
         pieces = new ArrayList();
         frameGame = new JFrame("Sliding puzzle game");
 //        frameGame.setSize( new Dimension(100,100) );
+        messageLabel = new JLabel("New game!");
         buttonNewGame = new JButton("New Game");
         buttonNewGame.addActionListener(this);
         buttonStart = new JButton("Start");
@@ -50,6 +52,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameGame.getContentPane().setLayout( new BoxLayout(frameGame.getContentPane(), BoxLayout.Y_AXIS) );
 //        frameGame.getContentPane().setSize(800,800);
+        frameGame.getContentPane().add(messageLabel);
         frameGame.getContentPane().add(panelPieces);
         frameGame.getContentPane().add(buttonNewGame);
         frameGame.getContentPane().add(buttonStart);
@@ -59,6 +62,12 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
    //     frameGame.setLayout();
 
     }
+
+    public void setText(String text)
+    {
+        messageLabel.setText(text);
+    }
+
     @Override
     public void update(Observable o, Object arg)
     {
