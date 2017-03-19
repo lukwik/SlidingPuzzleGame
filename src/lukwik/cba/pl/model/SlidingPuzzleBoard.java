@@ -97,11 +97,19 @@ public class SlidingPuzzleBoard extends Observable implements SlidingPuzzleModel
         rowEmpty = emptyPos/boardSize;
         colEmpty = emptyPos % boardSize;
 
-        if (Math.abs(sourceRow-rowEmpty)+Math.abs(sourceCol-colEmpty) == 1)
+        if (isPositionCorrect(position) && Math.abs(sourceRow-rowEmpty)+Math.abs(sourceCol-colEmpty) == 1)
         {
             return true;
         }
         return false;
+    }
+
+    private boolean isPositionCorrect(int position) {
+        if(position > pieces.size()-1)
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override
