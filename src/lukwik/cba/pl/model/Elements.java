@@ -28,8 +28,9 @@ public class Elements {
         List ordered = new ArrayList();
         for (int i=0; i<size; i++)
         {
-            ordered.add(i);
+            ordered.add(i+1);
         }
+        ordered.set(size-1,0);
         return ordered;
     }
     public boolean areOrdered()
