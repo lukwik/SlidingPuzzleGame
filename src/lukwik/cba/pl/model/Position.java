@@ -14,7 +14,8 @@ public class Position {
 
     public void setNumberOfElements(int argNumberOfElements)
     {
-        boardSize = (int) Math.sqrt( (double) argNumberOfElements );
+        Size size = new Size();
+        boardSize = size.toBoardSize(argNumberOfElements);
     }
 
     public int getRowFor( int position )

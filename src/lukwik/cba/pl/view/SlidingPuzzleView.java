@@ -1,6 +1,7 @@
 package lukwik.cba.pl.view;
 
 import lukwik.cba.pl.controller.SlidingPuzzleController;
+import lukwik.cba.pl.model.Size;
 
 import javax.swing.*;
 import java.awt.*;
@@ -171,10 +172,8 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
 
         public int getGameBoardSize()
         {
-            Double sqrt;
-
-            sqrt = new Double(Math.sqrt(pieces.size()));
-            return sqrt.intValue();
+            Size size = new Size();
+            return size.toBoardSize(pieces.size());
         }
     }
 }
