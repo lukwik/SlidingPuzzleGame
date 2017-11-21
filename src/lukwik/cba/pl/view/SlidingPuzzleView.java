@@ -47,7 +47,7 @@ public class SlidingPuzzleView implements Observer, ActionListener, MouseListene
         buttonStart.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonNewGame.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelPieces = new PiecesPanel(pieces);
-        panelPieces.setPreferredSize( new Dimension(700,700));
+        panelPieces.setPreferredSize( new Dimension(600,600));
         panelPieces.addMouseListener(this);
 //        panelPieces.setLayout( new GridLayout(3,1) );
         frameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
